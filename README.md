@@ -1,42 +1,90 @@
-Rick and Morty API
-Este projeto consiste em uma API desenvolvida em Laravel, que fornece funcionalidades para listar, filtrar e acessar detalhes de personagens da série "Rick and Morty". Ele permite consultas detalhadas sobre os personagens, incluindo informações como nome, status, espécie, gênero, origem e localização atual.
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f9f9f9;
+    }
+    h1, h2, h3 {
+        color: #2c3e50;
+        font-weight: bold;
+    }
+    h1 {
+        font-size: 1.8em;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 0.3em;
+    }
+    h2 {
+        font-size: 1.5em;
+        color: #3498db;
+        margin-top: 1em;
+    }
+    h3 {
+        font-size: 1.2em;
+        color: #2980b9;
+    }
+    code, pre {
+        background-color: #ecf0f1;
+        color: #2c3e50;
+        padding: 0.2em 0.4em;
+        border-radius: 4px;
+    }
+    pre {
+        padding: 1em;
+        overflow-x: auto;
+    }
+    ul, ol {
+        padding-left: 1.5em;
+    }
+    .command, .url {
+        background-color: #eaf2f8;
+        border: 1px solid #3498db;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+    }
+</style>
+</head>
+<body>
 
-Tecnologias Utilizadas
-Laravel 11.x
+<h1>Rick and Morty API</h1>
 
-PHP 8.3.13
+<p>Este projeto consiste em uma API desenvolvida em Laravel, que fornece funcionalidades para listar, filtrar e acessar detalhes de personagens da série "Rick and Morty". Ele permite consultas detalhadas sobre os personagens, incluindo informações como nome, status, espécie, gênero, origem e localização atual.</p>
 
-Composer para gerenciamento de dependências
+<h2>Tecnologias Utilizadas</h2>
+<ul>
+    <li><strong>Laravel 11.x</strong></li>
+    <li><strong>PHP 8.3.13</strong></li>
+    <li><strong>Composer</strong> para gerenciamento de dependências</li>
+</ul>
 
-Funcionalidades da API
-Listagem de Personagens: Fornece uma lista paginada de personagens.
+<h2>Funcionalidades da API</h2>
+<ul>
+    <li><strong>Listagem de Personagens</strong>: Fornece uma lista paginada de personagens.</li>
+    <li><strong>Filtragem de Personagens</strong>: Permite filtros avançados por atributos como nome, status (vivo, morto, desconhecido), espécie e gênero.</li>
+    <li><strong>Detalhes do Personagem</strong>: Retorna informações completas sobre um personagem específico a partir do seu ID.</li>
+</ul>
 
-Filtragem de Personagens: Permite filtros avançados por atributos como nome, status (vivo, morto, desconhecido), espécie e gênero.
+<h2>Endpoints Disponíveis</h2>
 
-Detalhes do Personagem: Retorna informações completas sobre um personagem específico a partir do seu ID.
+<h3>1. <code>GET /api/characters</code></h3>
+<p>Retorna uma lista paginada de personagens, com suporte para filtros avançados.</p>
+<p><strong>Parâmetros de Consulta:</strong></p>
+<ul>
+    <li><code>name</code>: Filtro pelo nome do personagem (exemplo: "Rick").</li>
+    <li><code>status</code>: Filtro pelo status do personagem (<code>alive</code>, <code>dead</code>, <code>unknown</code>).</li>
+    <li><code>species</code>: Filtro pela espécie do personagem (exemplo: "Human").</li>
+    <li><code>gender</code>: Filtro pelo gênero (<code>male</code>, <code>female</code>, <code>unknown</code>).</li>
+</ul>
 
-Endpoints Disponíveis
-1. GET /api/characters
-Retorna uma lista paginada de personagens, com suporte para filtros avançados.
+<p><strong>Exemplo de Requisição:</strong></p>
+<pre><code>GET /api/characters?name=Rick&status=alive&species=Human&gender=male</code></pre>
 
-Parâmetros de Consulta:
-
-name: Filtro pelo nome do personagem (exemplo: "Rick").
-
-status: Filtro pelo status do personagem (alive, dead, unknown).
-
-species: Filtro pela espécie do personagem (exemplo: "Human").
-
-gender: Filtro pelo gênero (male, female, unknown).
-
-Exemplo de Requisição:
-
-http
-GET /api/characters?name=Rick&status=alive&species=Human&gender=male
-Exemplo de Resposta:
-
-json
-{
+<p><strong>Exemplo de Resposta:</strong></p>
+<pre><code>{
   "data": [
     {
       "id": 1,
@@ -61,22 +109,20 @@ json
     "per_page": 20,
     "total": 200
   }
-}
-2. GET /api/characters/{id}
-Retorna as informações detalhadas de um personagem específico por ID.
+}</code></pre>
 
-Parâmetro de URL:
+<h3>2. <code>GET /api/characters/{id}</code></h3>
+<p>Retorna as informações detalhadas de um personagem específico por ID.</p>
+<p><strong>Parâmetro de URL:</strong></p>
+<ul>
+    <li><code>{id}</code>: ID do personagem desejado (exemplo: 1).</li>
+</ul>
 
-{id}: ID do personagem desejado (exemplo: 1).
+<p><strong>Exemplo de Requisição:</strong></p>
+<pre><code>GET /api/characters/1</code></pre>
 
-Exemplo de Requisição:
-
-http
-GET /api/characters/1
-Exemplo de Resposta:
-
-json
-{
+<p><strong>Exemplo de Resposta:</strong></p>
+<pre><code>{
   "id": 1,
   "name": "Rick Sanchez",
   "status": "Alive",
@@ -85,77 +131,85 @@ json
   "origin": "Earth (C-137)",
   "location": "Earth (Replacement Dimension)",
   "image": "https://example.com/image.jpg"
-}
-Configuração e Instalação
-Pré-requisitos
-PHP 8.3.13 ou superior
+}</code></pre>
 
-Composer para instalação de dependências
+<h2>Configuração e Instalação</h2>
 
-MySQL (ou outro banco de dados compatível com Laravel)
+<h3>Pré-requisitos</h3>
+<ul>
+    <li>PHP 8.3.13 ou superior</li>
+    <li>Composer para instalação de dependências</li>
+    <li>MySQL (ou outro banco de dados compatível com Laravel)</li>
+</ul>
 
-Passo a Passo
-Clone o Repositório:
+<h3>Passo a Passo</h3>
+<ol>
+    <li><strong>Clone o Repositório:</strong></li>
+</ol>
+<pre><code>git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio</code></pre>
 
-bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
-Instale as Dependências do Projeto:
+<ol start="2">
+    <li><strong>Instale as Dependências do Projeto:</strong></li>
+</ol>
+<pre><code>composer install</code></pre>
 
-bash
-composer install
-Configuração do Arquivo .env:
+<ol start="3">
+    <li><strong>Configuração do Arquivo <code>.env</code>:</strong></li>
+</ol>
+<p>Crie o arquivo <code>.env</code> com base no <code>.env.example</code>:</p>
+<pre><code>cp .env.example .env</code></pre>
 
-Crie o arquivo .env com base no .env.example:
-
-bash
-cp .env.example .env
-Configure as variáveis de ambiente do banco de dados:
-
-env
-DB_CONNECTION=mysql
+<p>Configure as variáveis de ambiente do banco de dados:</p>
+<pre><code>DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=sua_base_de_dados
 DB_USERNAME=seu_usuario
-DB_PASSWORD=sua_senha
-Gere a Chave da Aplicação:
+DB_PASSWORD=sua_senha</code></pre>
 
-bash
-php artisan key:generate
-Execute as Migrações:
+<ol start="4">
+    <li><strong>Gere a Chave da Aplicação:</strong></li>
+</ol>
+<pre><code>php artisan key:generate</code></pre>
 
-bash
-php artisan migrate
-Importe os Personagens da API Rick and Morty:
+<ol start="5">
+    <li><strong>Execute as Migrações:</strong></li>
+</ol>
+<pre><code>php artisan migrate</code></pre>
 
-bash
-php artisan import:characters
-Inicie o Servidor Local:
+<ol start="6">
+    <li><strong>Importe os Personagens da API Rick and Morty:</strong></li>
+</ol>
+<pre><code>php artisan import:characters</code></pre>
 
-bash
-php artisan serve
-A API estará disponível em http://localhost:8000.
+<ol start="7">
+    <li><strong>Inicie o Servidor Local:</strong></li>
+</ol>
+<pre><code>php artisan serve</code></pre>
+<p>A API estará disponível em <span class="url">http://localhost:8000</span>.</p>
 
-Como Usar a API
-Listar Personagens: Acesse http://localhost:8000/api/characters para obter a lista paginada de personagens.
+<h2>Como Usar a API</h2>
+<ul>
+    <li><strong>Listar Personagens:</strong> Acesse <span class="url">http://localhost:8000/api/characters</span> para obter a lista paginada de personagens.</li>
+    <li><strong>Filtrar Personagens:</strong> Adicione parâmetros de consulta na URL, como <span class="url">http://localhost:8000/api/characters?name=Rick&status=alive</span>.</li>
+    <li><strong>Consultar Detalhes de um Personagem:</strong> Acesse <span class="url">http://localhost:8000/api/characters/{id}</span>, substituindo <code>{id}</code> pelo ID do personagem.</li>
+</ul>
 
-Filtrar Personagens: Adicione parâmetros de consulta na URL, como http://localhost:8000/api/characters?name=Rick&status=alive.
+<h2>Comando Artisan Personalizado</h2>
+<p>Este projeto inclui um comando Artisan específico para importar os personagens da API oficial de Rick and Morty para o banco de dados local.</p>
 
-Consultar Detalhes de um Personagem: Acesse http://localhost:8000/api/characters/{id}, substituindo {id} pelo ID do personagem.
+<p><strong>Comando:</strong></p>
+<pre><code>php artisan import:characters</code></pre>
 
-Comando Artisan Personalizado
-Este projeto inclui um comando Artisan específico para importar os personagens da API oficial de Rick and Morty para o banco de dados local.
+<p><strong>Descrição:</strong> O comando realiza uma chamada à API de Rick and Morty, obtendo dados dos personagens e armazenando-os no banco de dados local.</p>
 
-Comando:
+<h2>Estrutura do Projeto</h2>
+<ul>
+    <li><code>app/Models/Character.php</code>: Modelo Eloquent que representa os personagens.</li>
+    <li><code>app/Http/Controllers/CharacterController.php</code>: Controlador responsável pelos endpoints da API de personagens.</li>
+    <li><code>app/Console/Commands/ImportCharacters.php</code>: Comando Artisan personalizado para importação de personagens.</li>
+</ul>
 
-bash
-php artisan import:characters
-Descrição: O comando realiza uma chamada à API de Rick and Morty, obtendo dados dos personagens e armazenando-os no banco de dados local.
-
-Estrutura do Projeto
-app/Models/Character.php: Modelo Eloquent que representa os personagens.
-
-app/Http/Controllers/CharacterController.php: Controlador responsável pelos endpoints da API de personagens.
-
-app/Console/Commands/ImportCharacters.php: Comando Artisan personalizado para importação de personagens.
+</body>
+</html>
