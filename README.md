@@ -1,66 +1,153 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Este projeto consiste em uma API desenvolvida em Laravel, que fornece funcionalidades para listar, filtrar e acessar detalhes de personagens da série "Rick and Morty". Ele permite consultas detalhadas sobre os personagens, incluindo informações como nome, status, espécie, gênero, origem e localização atual.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Tecnologias Utilizadas
+Laravel 11.x
+PHP 8.3.13
+Composer para gerenciamento de dependências
 
-## About Laravel
+Funcionalidades da API
+Listagem de Personagens: Fornece uma lista paginada de personagens.
+Filtragem de Personagens: Permite filtros avançados por atributos como nome, status (vivo, morto, desconhecido), espécie e gênero.
+Detalhes do Personagem: Retorna informações completas sobre um personagem específico a partir do seu ID.
+Endpoints Disponíveis
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+1. GET /api/characters
+Retorna uma lista paginada de personagens, com suporte para filtros avançados.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Parâmetros de Consulta (Query Parameters):
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+name: Filtro pelo nome do personagem (exemplo: "Rick").
+status: Filtro pelo status do personagem (alive, dead, unknown).
+species: Filtro pela espécie do personagem (exemplo: "Human").
+gender: Filtro pelo gênero (male, female, unknown).
+Exemplo de Requisição:
 
-## Learning Laravel
+http
+Copiar código
+GET /api/characters?name=Rick&status=alive&species=Human&gender=male
+Exemplo de Resposta:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+json
+Copiar código
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Rick Sanchez",
+      "status": "Alive",
+      "species": "Human",
+      "gender": "Male",
+      "origin": "Earth (C-137)",
+      "location": "Earth (Replacement Dimension)",
+      "image": "https://example.com/image.jpg"
+    },
+    ...
+  ],
+  "links": {
+    "first": "http://localhost/api/characters?page=1",
+    "last": "http://localhost/api/characters?page=10",
+    "prev": null,
+    "next": "http://localhost/api/characters?page=2"
+  },
+  "meta": {
+    "current_page": 1,
+    "last_page": 10,
+    "per_page": 20,
+    "total": 200
+  }
+}
+2. GET /api/characters/{id}
+Retorna as informações detalhadas de um personagem específico por ID.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Parâmetro de URL:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+{id}: ID do personagem desejado (exemplo: 1).
+Exemplo de Requisição:
 
-## Laravel Sponsors
+http
+Copiar código
+GET /api/characters/1
+Exemplo de Resposta:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+json
+Copiar código
+{
+  "id": 1,
+  "name": "Rick Sanchez",
+  "status": "Alive",
+  "species": "Human",
+  "gender": "Male",
+  "origin": "Earth (C-137)",
+  "location": "Earth (Replacement Dimension)",
+  "image": "https://example.com/image.jpg"
+}
+Configuração e Instalação
+Pré-requisitos
+PHP 8.3.13 ou superior
+Composer para instalação de dependências
+MySQL (ou outro banco de dados compatível com Laravel)
+Passo a Passo
+Clone o Repositório:
 
-### Premium Partners
+bash
+Copiar código
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
+Instale as Dependências do Projeto:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+bash
+Copiar código
+composer install
+Configuração do Arquivo .env:
 
-## Contributing
+Crie o arquivo .env com base no .env.example:
+bash
+Copiar código
+cp .env.example .env
+Configure as variáveis de ambiente do banco de dados:
+env
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=sua_base_de_dados
+DB_USERNAME=seu_usuario
+DB_PASSWORD=sua_senha
+Gere a Chave da Aplicação:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+php artisan key:generate
+Execute as Migrações:
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+php artisan migrate
+Importe os Personagens da API Rick and Morty:
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+php artisan import:characters
+Inicie o Servidor Local:
+
+
+php artisan serve
+A API estará disponível em http://localhost:8000.
+
+Como Usar a API
+Listar Personagens:
+
+Acesse http://localhost:8000/api/characters para obter a lista paginada de personagens.
+Filtrar Personagens:
+
+Adicione parâmetros de consulta na URL, como http://localhost:8000/api/characters?name=Rick&status=alive.
+Consultar Detalhes de um Personagem:
+
+Acesse http://localhost:8000/api/characters/{id}, substituindo {id} pelo ID do personagem.
+Comando Artisan Personalizado
+Este projeto inclui um comando Artisan específico para importar os personagens da API oficial de Rick and Morty para o banco de dados local.
+
+
+php artisan import:characters
+Descrição: O comando realiza uma chamada à API de Rick and Morty, obtendo dados dos personagens e armazenando-os no banco de dados local.
+Estrutura do Projeto
+app/Models/Character.php: Modelo Eloquent que representa os personagens.
+app/Http/Controllers/CharacterController.php: Controlador responsável pelos endpoints da API de personagens.
+app/Console/Commands/ImportCharacters.php: Comando Artisan personalizado para importação de personagens.
